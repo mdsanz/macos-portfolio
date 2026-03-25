@@ -38,37 +38,37 @@ const navIcons = [
 const dockApps = [
   {
     id: "finder",
-    name: "Portfolio", // was "Finder"
+    name: "Portfolio",
     icon: "finder.png",
     canOpen: true,
   },
   {
     id: "safari",
-    name: "Articles", // was "Safari"
+    name: "Articles",
     icon: "safari.png",
     canOpen: true,
   },
   {
     id: "photos",
-    name: "Gallery", // was "Photos"
+    name: "Gallery",
     icon: "photos.png",
     canOpen: true,
   },
   {
     id: "contact",
-    name: "Contact", // or "Get in touch"
+    name: "Contact",
     icon: "contact.png",
     canOpen: true,
   },
   {
     id: "terminal",
-    name: "Skills", // was "Terminal"
+    name: "Skills",
     icon: "terminal.png",
     canOpen: true,
   },
   {
     id: "trash",
-    name: "Archive", // was "Trash"
+    name: "Archive",
     icon: "trash.png",
     canOpen: false,
   },
@@ -77,52 +77,51 @@ const dockApps = [
 const blogPosts = [
   {
     id: 1,
-    date: "Sep 2, 2025",
-    title:
-      "TypeScript Explained: What It Is, Why It Matters, and How to Master It",
+    date: "Mar 1, 2026",
+    title: "State Machines in Practice: Modeling Complex Flows with TypeScript",
     image: "/images/blog1.png",
-    link: "https://jsmastery.com/blog/typescript-explained-what-it-is-why-it-matters-and-how-to-master-it",
+    link: "https://github.com/mdsanz",
   },
   {
     id: 2,
-    date: "Aug 28, 2025",
-    title: "The Ultimate Guide to Mastering Three.js for 3D Development",
+    date: "Feb 15, 2026",
+    title: "Building AI Voice Agents with Gemini API and VAPI",
     image: "/images/blog2.png",
-    link: "https://jsmastery.com/blog/the-ultimate-guide-to-mastering-three-js-for-3d-development",
+    link: "https://github.com/mdsanz",
   },
   {
     id: 3,
-    date: "Aug 15, 2025",
-    title: "The Ultimate Guide to Mastering GSAP Animations",
+    date: "Jan 20, 2026",
+    title: "Event-Driven Microservices with Apache Kafka and Spring Boot",
     image: "/images/blog3.png",
-    link: "https://jsmastery.com/blog/the-ultimate-guide-to-mastering-gsap-animations",
+    link: "https://github.com/mdsanz",
   },
 ];
 
 const techStack = [
   {
-    category: "Frontend",
-    items: ["React.js", "Next.js", "TypeScript"],
+    category: "Backend",
+    items: ["Java", "Spring Boot", "Quarkus", "Node.js"],
   },
   {
-    category: "Mobile",
-    items: ["React Native", "Expo"],
+    category: "Frontend",
+    items: ["React", "Next.js", "TypeScript", "Redux"],
   },
   {
     category: "Styling",
-    items: ["Tailwind CSS", "Sass", "CSS"],
-  },
-  {
-    category: "Backend",
-    items: ["Node.js", "Express", "NestJS", "Hono"],
+    items: ["Tailwind CSS", "LESS", "GSAP"],
   },
   {
     category: "Database",
-    items: ["MongoDB", "PostgreSQL"],
+    items: ["PostgreSQL", "MongoDB"],
   },
   {
-    category: "Dev Tools",
-    items: ["Git", "GitHub", "Docker"],
+    category: "Cloud & Infra",
+    items: ["AWS", "Apache Kafka", "Docker"],
+  },
+  {
+    category: "AI & Testing",
+    items: ["Gemini API", "VAPI", "JUnit", "Playwright"],
   },
 ];
 
@@ -132,28 +131,21 @@ const socials = [
     text: "Github",
     icon: "/icons/github.svg",
     bg: "#f4656b",
-    link: "https://github.com/JavaScript-Mastery-Pro",
+    link: "https://github.com/mdsanz",
   },
   {
     id: 2,
-    text: "Platform",
-    icon: "/icons/atom.svg",
-    bg: "#4bcb63",
-    link: "https://jsmastery.com/",
-  },
-  {
-    id: 3,
-    text: "Twitter/X",
-    icon: "/icons/twitter.svg",
-    bg: "#ff866b",
-    link: "https://x.com/jsmasterypro",
-  },
-  {
-    id: 4,
     text: "LinkedIn",
     icon: "/icons/linkedin.svg",
     bg: "#05b6f6",
-    link: "https://www.linkedin.com/company/javascriptmastery/posts/?feedView=all",
+    link: "https://www.linkedin.com/in/md-sanz/",
+  },
+  {
+    id: 3,
+    text: "Email",
+    icon: "/icons/twitter.svg",
+    bg: "#ff866b",
+    link: "mailto:marcos.sanzlara@gmail.com",
   },
 ];
 
@@ -225,38 +217,38 @@ const WORK_LOCATION = {
     // ▶ Project 1
     {
       id: 5,
-      name: "Nike Ecommerce Website Application",
+      name: "AI Interview Platform",
       icon: "/images/folder.png",
       kind: "folder",
-      position: "top-10 left-5", // icon position inside Finder
-      windowPosition: "top-[5vh] left-5", // optional: Finder window position
+      position: "top-10 left-5",
+      windowPosition: "top-[5vh] left-5",
       children: [
         {
           id: 1,
-          name: "Nike Project.txt",
+          name: "AI Interview Platform.txt",
           icon: "/images/txt.png",
           kind: "file",
           fileType: "txt",
           position: "top-5 left-10",
           description: [
-            "The Nike eCommerce website is a sleek and modern platform designed for shopping the latest Nike collections.",
-            "Instead of a simple online store, it delivers an immersive experience with bold visuals, interactive product displays, and smooth navigation.",
-            "Think of it like walking into a flagship Nike store—but right from your phone or laptop.",
-            "It's built with Next.js and Tailwind, ensuring fast performance, responsive design, and a clean, premium look.",
+            "A voice-agent application that conducts role-specific technical interviews for software engineering positions.",
+            "Uses Google Gemini API to dynamically generate interview questions and provide structured feedback, and VAPI for real-time voice interaction.",
+            "The interview flow is modeled as a state machine with hash map-indexed question banks per role for O(1) retrieval.",
+            "Built with Next.js, TypeScript, Tailwind CSS, Gemini API, and VAPI.",
           ],
         },
         {
           id: 2,
-          name: "nike.com",
+          name: "ai-interview.com",
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
-          href: "https://youtu.be/fZdTYswuZjU?si=Awjl-pIst9e09_UU",
+          href: "https://github.com/mdsanz",
           position: "top-10 right-20",
         },
         {
           id: 4,
-          name: "nike.png",
+          name: "ai-interview.png",
           icon: "/images/image.png",
           kind: "file",
           fileType: "img",
@@ -265,11 +257,11 @@ const WORK_LOCATION = {
         },
         {
           id: 5,
-          name: "Design.fig",
+          name: "Code.fig",
           icon: "/images/plain.png",
           kind: "file",
           fileType: "fig",
-          href: "https://google.com",
+          href: "https://github.com/mdsanz",
           position: "top-60 right-20",
         },
       ],
@@ -278,7 +270,7 @@ const WORK_LOCATION = {
     // ▶ Project 2
     {
       id: 6,
-      name: "AI Resume Analyzer",
+      name: "Patient Management System",
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-52 right-80",
@@ -286,30 +278,30 @@ const WORK_LOCATION = {
       children: [
         {
           id: 1,
-          name: "AI Resume Analyzer Project.txt",
+          name: "Patient Management System.txt",
           icon: "/images/txt.png",
           kind: "file",
           fileType: "txt",
           position: "top-5 right-10",
           description: [
-            "AI Resume Analyzer is a smart tool that helps you perfect your resume with instant feedback.",
-            "Instead of guessing what recruiters want, you get AI-powered insights on keywords, formatting, and overall impact.",
-            "Think of it like having a career coach—pointing out strengths, fixing weaknesses, and boosting your chances of landing interviews.",
-            "It's built with Next.js and Tailwind, so it runs fast, looks professional, and works seamlessly on any device.",
+            "A distributed patient administration system built with a microservices architecture.",
+            "Services communicate asynchronously via Apache Kafka using producer/consumer patterns, ensuring loose coupling and fault tolerance.",
+            "Deployed independently on AWS (EC2, RDS, S3) with Docker containerization and automated CI/CD pipelines.",
+            "Built with Java, Spring Boot, Apache Kafka, AWS, Docker, and PostgreSQL.",
           ],
         },
         {
           id: 2,
-          name: "ai-resume-analyzer.com",
+          name: "patient-system.com",
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
-          href: "https://youtu.be/iYOz165wGkQ?si=R1hs8Legl200m0Cl",
+          href: "https://github.com/mdsanz",
           position: "top-20 left-20",
         },
         {
           id: 4,
-          name: "ai-resume-analyzer.png",
+          name: "patient-system.png",
           icon: "/images/image.png",
           kind: "file",
           fileType: "img",
@@ -318,11 +310,11 @@ const WORK_LOCATION = {
         },
         {
           id: 5,
-          name: "Design.fig",
+          name: "Code.fig",
           icon: "/images/plain.png",
           kind: "file",
           fileType: "fig",
-          href: "https://google.com",
+          href: "https://github.com/mdsanz",
           position: "top-60 left-5",
         },
       ],
@@ -331,7 +323,7 @@ const WORK_LOCATION = {
     // ▶ Project 3
     {
       id: 7,
-      name: "Food Delivery App",
+      name: "macOS Portfolio Simulator",
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-10 left-80",
@@ -339,30 +331,30 @@ const WORK_LOCATION = {
       children: [
         {
           id: 1,
-          name: "Food Delivery App Project.txt",
+          name: "macOS Portfolio.txt",
           icon: "/images/txt.png",
           kind: "file",
           fileType: "txt",
           position: "top-5 left-10",
           description: [
-            "Our Food Delivery App is a fast and convenient way to order meals from your favorite restaurants.",
-            "Instead of making calls or waiting in line, you can browse menus, customize orders, and track deliveries in real time.",
-            "Think of it like having your favorite restaurants in your pocket—ready to deliver anytime, anywhere.",
-            "It’s built with React Native, so it works smoothly on both iOS and Android with a clean, modern design.",
+            "An interactive developer portfolio that simulates a macOS desktop environment.",
+            "Features fluid animations powered by GSAP, a working dock, draggable windows, and a Finder-like project browser.",
+            "Designed to showcase projects and skills in a creative, memorable way that stands out from typical portfolios.",
+            "Built with Next.js, TypeScript, Tailwind CSS, and GSAP.",
           ],
         },
         {
           id: 2,
-          name: "food-delivery-app.com",
+          name: "portfolio.com",
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
-          href: "https://youtu.be/LKrX390fJMw?si=cExkuVhf2DTV9G2-",
+          href: "https://github.com/mdsanz",
           position: "top-10 right-20",
         },
         {
           id: 4,
-          name: "food-delivery-app.png",
+          name: "portfolio.png",
           icon: "/images/image.png",
           kind: "file",
           fileType: "img",
@@ -371,11 +363,11 @@ const WORK_LOCATION = {
         },
         {
           id: 5,
-          name: "Design.fig",
+          name: "Code.fig",
           icon: "/images/plain.png",
           kind: "file",
           fileType: "fig",
-          href: "https://google.com",
+          href: "https://github.com/mdsanz",
           position: "top-60 right-20",
         },
       ],
@@ -397,7 +389,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "img",
       position: "top-10 left-5",
-      imageUrl: "/images/adrian.jpg",
+      imageUrl: "/images/marcos.jpg",
     },
     {
       id: 2,
@@ -406,16 +398,16 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "img",
       position: "top-28 right-72",
-      imageUrl: "/images/adrian-2.jpg",
+      imageUrl: "/images/marcos-2.jpg",
     },
     {
       id: 3,
-      name: "conference-me.png",
+      name: "coding-me.png",
       icon: "/images/image.png",
       kind: "file",
       fileType: "img",
       position: "top-52 left-80",
-      imageUrl: "/images/adrian-3.jpeg",
+      imageUrl: "/images/marcos-3.jpg",
     },
     {
       id: 4,
@@ -424,13 +416,13 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "txt",
       position: "top-60 left-5",
-      subtitle: "Meet the Developer Behind the Code",
-      image: "/images/adrian.jpg",
+      subtitle: "Full Stack Engineer based in Mexico City",
+      image: "/images/marcos.jpg",
       description: [
-        "Hey! I’m Adrian 👋, a web developer who enjoys building sleek, interactive websites that actually work well.",
-        "I specialize in JavaScript, React, and Next.js—and I love making things feel smooth, fast, and just a little bit delightful.",
-        "I’m big on clean UI, good UX, and writing code that doesn’t need a search party to debug.",
-        "Outside of dev work, you'll find me tweaking layouts at 2AM, sipping overpriced coffee, or impulse-buying gadgets I absolutely convinced myself I needed 😅",
+        "Hey! I'm Marcos 👋, a Full Stack Engineer with 3+ years building production systems at Netcracker Technology.",
+        "I work across the full stack — Java and Spring Boot on the backend, React and Next.js on the frontend — and I'm passionate about clean code, reliable systems, and developer experience.",
+        "Outside of work I build things out of curiosity: an AI interview platform with Gemini and voice agents, a distributed patient system on AWS, and yes — this portfolio that simulates macOS because why not 😄",
+        "Currently based in Mexico City, open to remote opportunities worldwide.",
       ],
     },
   ],
@@ -445,12 +437,10 @@ const RESUME_LOCATION = {
   children: [
     {
       id: 1,
-      name: "Resume.pdf",
+      name: "Marcos_Sanchez_CV.pdf",
       icon: "/images/pdf.png",
       kind: "file",
       fileType: "pdf",
-      // you can add `href` if you want to open a hosted resume
-      // href: "/your/resume/path.pdf",
     },
   ],
 };
