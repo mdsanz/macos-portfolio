@@ -25,7 +25,7 @@ const Finder = () => {
             <h3>{name}</h3>
             <ul>
                 {items.map((item) => (
-                    <li key={item.id} className={clsx(item.id === activeLocation.id ? "active" : "not-active")} onClick={() => setActiveLocation(item)}>
+                    <li key={item.id} className={clsx(item.id === activeLocation?.id ? "active" : "not-active")} onClick={() => setActiveLocation(item)}>
                         <img src={item.icon} alt={item.name} className="w-4" />
                         <p className="text-sm font-medium truncate">{item.name}</p>
                     </li>
@@ -48,7 +48,7 @@ const Finder = () => {
                 </div>
 
                 <ul className="content">
-                    {activeLocation.children.map((item) => (
+                    {activeLocation?.children?.map((item) => (
                         <li key={item.id} className={item.position} onClick={() => openItem(item)}>
                             <img src={item.icon} alt={item.name} />
                             <p>{item.name}</p>
