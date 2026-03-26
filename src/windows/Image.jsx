@@ -14,12 +14,12 @@ const Image = () => {
         <>
             <div id="window-header">
                 <WindowControls target="imgfile" />
-                <p>{name}</p>
+                <h2>{name}</h2>
                 <div className="w-12" />
             </div>
 
             <div className="preview">
-                <img src={imageUrl} alt={name} />
+                {imageUrl && <img src={imageUrl} alt={name} />}
             </div>
         </>
     );
