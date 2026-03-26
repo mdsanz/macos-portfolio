@@ -4,6 +4,12 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { Draggable } from "gsap/dist/Draggable";
 
+const DOCK_MAP = {
+  resume: "finder",
+  txtfile: "finder",
+  imgfile: "photos",
+};
+
 const WindowWrapper = (Component, windowKey) => {
   const Wrapped = (props) => {
     const { focusWindow, windows, setLastPos } = useWindowStore();
@@ -17,7 +23,8 @@ const WindowWrapper = (Component, windowKey) => {
 
       gsap.killTweensOf(el);
 
-      const icon = document.getElementById(`dock-icon-${windowKey}`);
+      const iconId = DOCK_MAP[windowKey] || windowKey;
+      const icon = document.getElementById(`dock-icon-${iconId}`);
       const iconRect = icon?.getBoundingClientRect();
 
       if (isMinimized) {

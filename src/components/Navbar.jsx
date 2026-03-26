@@ -5,7 +5,7 @@ import { navIcons, navLinks } from "#constants";
 import useWindowStore from "#store/window";
 
 const Navbar = () => {
-    const { openWindow } = useWindowStore();
+    const openWindow = useWindowStore((state) => state.openWindow);
     const [time, setTime] = useState(dayjs());
 
     useEffect(() => {
