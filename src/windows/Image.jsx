@@ -11,7 +11,7 @@ const Image = () => {
     const { name, imageUrl } = data;
 
     return (
-        <>
+        <div className="flex flex-col h-full w-full">
             <div id="window-header">
                 <WindowControls target="imgfile" />
                 <h2>{name}</h2>
@@ -21,7 +21,7 @@ const Image = () => {
             <div className="preview">
                 {imageUrl && <img src={imageUrl} alt={name || "Preview image"} />}
             </div>
-        </>
+        </div>
     );
 };
 
