@@ -101,8 +101,12 @@ body {
   #window-controls {
     @apply flex gap-2;
 
-    div {
+    button {
       @apply size-3.5 rounded-full cursor-pointer transition-all duration-300 hover:brightness-90;
+    }
+
+    button:disabled {
+      @apply cursor-not-allowed opacity-50 hover:brightness-100;
     }
 
     .close {

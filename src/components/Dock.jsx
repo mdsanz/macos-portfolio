@@ -80,6 +80,7 @@ const Dock = () => {
         {dockApps.map(({ id, name, icon, canOpen }) => (
           <div key={id} className="relative flex justify-center">
             <button
+              id={`dock-icon-${id}`}
               type="button"
               className="dock-icon"
               aria-label={name}
