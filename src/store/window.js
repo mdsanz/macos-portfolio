@@ -19,7 +19,9 @@ const useWindowStore = create(immer(set => ({
         const win = state.windows[windowKey]
         win.isOpen = false;
         win.isMinimized = false;
+        win.isMaximized = false;
         win.lastPos = null;
+        win.lastSize = null;
         win.zIndex = INITIAL_Z_INDEX
         win.data = null
     }),
