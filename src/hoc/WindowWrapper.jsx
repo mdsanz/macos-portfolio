@@ -9,10 +9,13 @@ const WindowWrapper = (Component, windowKey) => {
     const { focusWindow, windows, setLastPos } = useWindowStore();
     const { isOpen, isMinimized, lastPos, zIndex } = windows[windowKey];
     const ref = useRef(null);
+    const draggableRef = useRef(null);
 
     useGSAP(() => {
       const el = ref.current;
       if (!el || !isOpen) return;
+
+      gsap.killTweensOf(el);
 
       const icon = document.getElementById(`dock-icon-${windowKey}`);
       const iconRect = icon?.getBoundingClientRect();
@@ -66,7 +69,15 @@ const WindowWrapper = (Component, windowKey) => {
         gsap.fromTo(
           el,
           { x: startX, y: startY, scale: 0, opacity: 0 },
-          { x: targetX, y: targetY, scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" },
+          {
+            x: targetX,
+            y: targetY,
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.out",
+            onComplete: () => draggableRef.current?.update(),
+          },
         );
       }
     }, [isMinimized, isOpen]);
@@ -76,6 +87,7 @@ const WindowWrapper = (Component, windowKey) => {
       if (!el) return;
 
       const [instance] = Draggable.create(el, { onPress: () => focusWindow(windowKey) });
+      draggableRef.current = instance;
 
       return () => instance.kill();
     }, []);
