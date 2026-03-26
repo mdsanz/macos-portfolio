@@ -339,7 +339,7 @@ body {
   }
 
   #imgfile {
-    @apply w-xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden flex flex-col;
 
     #window-header {
       h2 {
@@ -348,10 +348,10 @@ body {
     }
 
     .preview {
-      @apply p-2 bg-gray-200 max-h-[70vh];
+      @apply p-2 bg-gray-200 flex items-center justify-center flex-1 overflow-hidden min-h-[300px];
 
       img {
-        @apply w-full h-fit object-contain object-center;
+        @apply w-full h-full object-contain filter drop-shadow-sm;
       }
     }
   }

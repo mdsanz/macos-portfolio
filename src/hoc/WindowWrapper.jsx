@@ -12,8 +12,8 @@ const DOCK_MAP = {
 
 const WindowWrapper = (Component, windowKey) => {
   const Wrapped = (props) => {
-    const { focusWindow, windows, setLastPos } = useWindowStore();
-    const { isOpen, isMinimized, lastPos, zIndex } = windows[windowKey];
+    const { focusWindow, windows, setLastPos, setLastSize } = useWindowStore();
+    const { isOpen, isMinimized, lastPos, zIndex, isMaximized, lastSize } = windows[windowKey];
     const ref = useRef(null);
     const draggableRef = useRef(null);
 
@@ -27,10 +27,10 @@ const WindowWrapper = (Component, windowKey) => {
       const icon = document.getElementById(`dock-icon-${iconId}`);
       const iconRect = icon?.getBoundingClientRect();
 
+      const currentX = gsap.getProperty(el, "x") || 0;
+      const currentY = gsap.getProperty(el, "y") || 0;
       if (isMinimized) {
         const windowRect = el.getBoundingClientRect();
-
-        // Calculate delta to dock icon center
         const destX = iconRect
           ? iconRect.left + iconRect.width / 2 - (windowRect.left + windowRect.width / 2)
           : 0;
@@ -38,9 +38,8 @@ const WindowWrapper = (Component, windowKey) => {
           ? iconRect.top + iconRect.height / 2 - (windowRect.top + windowRect.height / 2)
           : window.innerHeight;
 
-        // Save current position before animating away, but only if we're not mid-animation (scale ~ 1)
         const currentScale = gsap.getProperty(el, "scale");
-        if (currentScale > 0.99) {
+        if (currentScale > 0.99 && !isMaximized) {
           setLastPos(windowKey, { x: gsap.getProperty(el, "x"), y: gsap.getProperty(el, "y") });
         }
 
@@ -56,41 +55,84 @@ const WindowWrapper = (Component, windowKey) => {
           },
         });
       } else {
-        // Initial open or Restore (merged logic)
+        // Not minimized: could be Maximized or Restored/Opening
+        const wasHidden = el.style.display === "none" || gsap.getProperty(el, "opacity") === 0;
         el.style.display = "block";
 
-        // Ensure we measure the window's base position (where x=0, y=0)
-        const currentX = gsap.getProperty(el, "x") || 0;
-        const currentY = gsap.getProperty(el, "y") || 0;
         const windowRect = el.getBoundingClientRect();
         const baseLeft = windowRect.left - currentX;
         const baseTop = windowRect.top - currentY;
 
         const startX = iconRect
-          ? iconRect.left + iconRect.width / 2 - (baseLeft + windowRect.width / 2)
+          ? iconRect.left + iconRect.width / 2 - (baseLeft + (lastSize?.width || windowRect.width) / 2)
           : 0;
         const startY = iconRect
-          ? iconRect.top + iconRect.height / 2 - (baseTop + windowRect.height / 2)
+          ? iconRect.top + iconRect.height / 2 - (baseTop + (lastSize?.height || windowRect.height) / 2)
           : window.innerHeight;
 
-        const targetX = lastPos?.x || 0;
-        const targetY = lastPos?.y || 0;
+        if (isMaximized) {
+          draggableRef.current?.disable();
 
-        gsap.fromTo(
-          el,
-          { x: startX, y: startY, scale: 0, opacity: 0 },
-          {
+          // Capture state before animating
+          const currentScale = gsap.getProperty(el, "scale");
+          if (currentScale > 0.99) {
+            setLastPos(windowKey, { x: currentX, y: currentY });
+            setLastSize(windowKey, { width: el.offsetWidth, height: el.offsetHeight });
+          }
+
+          const navHeight = document.querySelector("nav")?.offsetHeight || 30;
+
+          if (wasHidden) {
+            gsap.set(el, { x: startX, y: startY, scale: 0, opacity: 0 });
+          }
+
+          gsap.to(el, {
+            top: navHeight,
+            left: 0,
+            x: 0,
+            y: 0,
+            width: "100%",
+            height: `calc(100% - ${navHeight}px)`,
+            maxWidth: "none",
+            xPercent: 0,
+            yPercent: 0,
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power3.inOut",
+            onComplete: () => draggableRef.current?.update(),
+          });
+        } else {
+          // Restore/Unmaximize/Opening
+          const targetX = lastPos?.x || 0;
+          const targetY = lastPos?.y || 0;
+
+          if (wasHidden) {
+            gsap.set(el, { x: startX, y: startY, scale: 0, opacity: 0 });
+          }
+
+          gsap.to(el, {
             x: targetX,
             y: targetY,
+            width: lastSize?.width || "",
+            height: lastSize?.height || "",
+            top: "", 
+            left: "",
+            maxWidth: "",
+            xPercent: "",
+            yPercent: "",
             scale: 1,
             opacity: 1,
             duration: 0.5,
             ease: "power2.out",
-            onComplete: () => draggableRef.current?.update(),
-          },
-        );
+            onComplete: () => {
+              draggableRef.current?.enable();
+              draggableRef.current?.update();
+            },
+          });
+        }
       }
-    }, [isMinimized, isOpen]);
+    }, [isMinimized, isOpen, isMaximized]);
 
     useGSAP(() => {
       const el = ref.current;
