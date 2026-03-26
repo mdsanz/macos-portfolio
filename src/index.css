@@ -101,16 +101,20 @@ body {
   #window-controls {
     @apply flex gap-2;
 
+    div {
+      @apply size-3.5 rounded-full cursor-pointer transition-all duration-300 hover:brightness-90;
+    }
+
     .close {
-      @apply size-3.5 rounded-full bg-[#ff6157] cursor-pointer;
+      @apply bg-[#ff6157];
     }
 
     .minimize {
-      @apply size-3.5 rounded-full bg-[#ffc030];
+      @apply bg-[#ffc030];
     }
 
     .maximize {
-      @apply size-3.5 rounded-full bg-[#2acb42];
+      @apply bg-[#2acb42];
     }
   }
 
