@@ -64,8 +64,8 @@ const Dock = () => {
     const { windows, openWindow, minimizeWindow } = useWindowStore.getState();
 
     const window = windows[app.id];
-
-    if (window.isOpen && !window.isMinimized) {
+    
+    if (window?.isOpen && !window?.isMinimized) {
       minimizeWindow(app.id);
     } else {
       openWindow(app.id);
