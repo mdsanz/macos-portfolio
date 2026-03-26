@@ -38,8 +38,11 @@ const WindowWrapper = (Component, windowKey) => {
           ? iconRect.top + iconRect.height / 2 - (windowRect.top + windowRect.height / 2)
           : window.innerHeight;
 
-        // Save current position before animating away
-        setLastPos(windowKey, { x: gsap.getProperty(el, "x"), y: gsap.getProperty(el, "y") });
+        // Save current position before animating away, but only if we're not mid-animation (scale ~ 1)
+        const currentScale = gsap.getProperty(el, "scale");
+        if (currentScale > 0.99) {
+          setLastPos(windowKey, { x: gsap.getProperty(el, "x"), y: gsap.getProperty(el, "y") });
+        }
 
         gsap.to(el, {
           x: `+=${destX}`,
@@ -55,7 +58,7 @@ const WindowWrapper = (Component, windowKey) => {
       } else {
         // Initial open or Restore (merged logic)
         el.style.display = "block";
-        
+
         // Ensure we measure the window's base position (where x=0, y=0)
         const currentX = gsap.getProperty(el, "x") || 0;
         const currentY = gsap.getProperty(el, "y") || 0;
