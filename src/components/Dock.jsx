@@ -61,12 +61,12 @@ const Dock = () => {
   const toggleApp = (app) => {
     if (!app.canOpen) return;
 
-    const { windows, openWindow, closeWindow } = useWindowStore.getState();
+    const { windows, openWindow, minimizeWindow } = useWindowStore.getState();
 
     const window = windows[app.id];
 
     if (window.isOpen && !window.isMinimized) {
-      closeWindow(app.id);
+      minimizeWindow(app.id);
     } else {
       openWindow(app.id);
     }
