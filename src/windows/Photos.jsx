@@ -58,6 +58,14 @@ const Photos = () => {
                 key={photo.id}
                 className="aspect-square rounded-lg overflow-hidden group cursor-pointer border border-gray-200/30 hover:shadow-xl transition-all duration-300"
                 onClick={() => openWindow("imgfile", { name: `Photo ${photo.id}`, imageUrl: photo.img })}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openWindow("imgfile", { name: `Photo ${photo.id}`, imageUrl: photo.img });
+                  }
+                }}
               >
                 <img
                   src={photo.img}
