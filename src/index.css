@@ -50,8 +50,12 @@ body {
     ul {
       @apply flex items-center gap-5 max-sm:hidden;
 
-      p {
-        @apply text-sm cursor-pointer hover:underline transition-all;
+      button {
+        @apply cursor-pointer bg-transparent border-none p-0;
+
+        span {
+          @apply text-sm hover:underline transition-all;
+        }
       }
     }
 
@@ -245,10 +249,10 @@ body {
   }
 
   #photos {
-    @apply max-w-3xl absolute top-96 left-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply max-w-5xl w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden flex flex-col h-[600px];
 
     .sidebar {
-      @apply w-3/12 flex-none bg-gray-50 border-r border-gray-200 flex flex-col p-5;
+      @apply w-56 flex-none bg-gray-50 border-r border-gray-200 flex flex-col p-5;
 
       h2 {
         @apply text-xs font-medium text-gray-400 mb-1;
@@ -274,7 +278,7 @@ body {
     }
 
     .gallery {
-      @apply p-5;
+      @apply p-5 pb-20;
 
       ul {
         @apply grid grid-cols-5 grid-rows-5 gap-2.5;
