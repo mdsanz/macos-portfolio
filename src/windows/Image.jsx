@@ -19,7 +19,7 @@ const Image = () => {
             </div>
 
             <div className="preview flex-1">
-                {imageUrl && <img src={imageUrl} alt={name} className="w-full h-full object-contain" />}
+                {imageUrl && <img src={imageUrl} alt={name} />}
             </div>
         </div>
     );
