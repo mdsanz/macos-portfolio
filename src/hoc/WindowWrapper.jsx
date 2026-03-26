@@ -4,30 +4,100 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { Draggable } from "gsap/dist/Draggable";
 
+const DOCK_MAP = {
+  resume: "finder",
+  txtfile: "finder",
+  imgfile: "photos",
+};
+
 const WindowWrapper = (Component, windowKey) => {
   const Wrapped = (props) => {
-    const { focusWindow, windows } = useWindowStore();
-    const { isOpen, zIndex } = windows[windowKey];
+    const { focusWindow, windows, setLastPos } = useWindowStore();
+    const { isOpen, isMinimized, lastPos, zIndex } = windows[windowKey];
     const ref = useRef(null);
+    const draggableRef = useRef(null);
 
     useGSAP(() => {
       const el = ref.current;
       if (!el || !isOpen) return;
 
-      el.style.display = "block";
+      gsap.killTweensOf(el);
 
-      gsap.fromTo(
-        el,
-        { scale: 0.8, opacity: 0, y: 40 },
-        { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "power3.out" },
-      );
-    }, [isOpen]);
+      const iconId = DOCK_MAP[windowKey] || windowKey;
+      const icon = document.getElementById(`dock-icon-${iconId}`);
+      const iconRect = icon?.getBoundingClientRect();
+
+      if (isMinimized) {
+        const windowRect = el.getBoundingClientRect();
+
+        // Calculate delta to dock icon center
+        const destX = iconRect
+          ? iconRect.left + iconRect.width / 2 - (windowRect.left + windowRect.width / 2)
+          : 0;
+        const destY = iconRect
+          ? iconRect.top + iconRect.height / 2 - (windowRect.top + windowRect.height / 2)
+          : window.innerHeight;
+
+        // Save current position before animating away, but only if we're not mid-animation (scale ~ 1)
+        const currentScale = gsap.getProperty(el, "scale");
+        if (currentScale > 0.99) {
+          setLastPos(windowKey, { x: gsap.getProperty(el, "x"), y: gsap.getProperty(el, "y") });
+        }
+
+        gsap.to(el, {
+          x: `+=${destX}`,
+          y: `+=${destY}`,
+          scale: 0,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.inOut",
+          onComplete: () => {
+            el.style.display = "none";
+          },
+        });
+      } else {
+        // Initial open or Restore (merged logic)
+        el.style.display = "block";
+
+        // Ensure we measure the window's base position (where x=0, y=0)
+        const currentX = gsap.getProperty(el, "x") || 0;
+        const currentY = gsap.getProperty(el, "y") || 0;
+        const windowRect = el.getBoundingClientRect();
+        const baseLeft = windowRect.left - currentX;
+        const baseTop = windowRect.top - currentY;
+
+        const startX = iconRect
+          ? iconRect.left + iconRect.width / 2 - (baseLeft + windowRect.width / 2)
+          : 0;
+        const startY = iconRect
+          ? iconRect.top + iconRect.height / 2 - (baseTop + windowRect.height / 2)
+          : window.innerHeight;
+
+        const targetX = lastPos?.x || 0;
+        const targetY = lastPos?.y || 0;
+
+        gsap.fromTo(
+          el,
+          { x: startX, y: startY, scale: 0, opacity: 0 },
+          {
+            x: targetX,
+            y: targetY,
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.out",
+            onComplete: () => draggableRef.current?.update(),
+          },
+        );
+      }
+    }, [isMinimized, isOpen]);
 
     useGSAP(() => {
       const el = ref.current;
       if (!el) return;
 
       const [instance] = Draggable.create(el, { onPress: () => focusWindow(windowKey) });
+      draggableRef.current = instance;
 
       return () => instance.kill();
     }, []);
@@ -35,7 +105,8 @@ const WindowWrapper = (Component, windowKey) => {
     useLayoutEffect(() => {
       const el = ref.current;
       if (!el) return;
-      el.style.display = isOpen ? "block" : "none";
+      // We handle display in the animation useGSAP, but as a fallback/initial state:
+      if (!isOpen) el.style.display = "none";
     }, [isOpen]);
 
     return (

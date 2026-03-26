@@ -61,17 +61,15 @@ const Dock = () => {
   const toggleApp = (app) => {
     if (!app.canOpen) return;
 
-    const { windows, openWindow, closeWindow } = useWindowStore.getState();
+    const { windows, openWindow, minimizeWindow } = useWindowStore.getState();
 
     const window = windows[app.id];
 
-    if (window.isOpen) {
-      closeWindow(app.id);
+    if (window.isOpen && !window.isMinimized) {
+      minimizeWindow(app.id);
     } else {
       openWindow(app.id);
     }
-
-    console.log(windows);
   };
 
   return (
@@ -80,6 +78,7 @@ const Dock = () => {
         {dockApps.map(({ id, name, icon, canOpen }) => (
           <div key={id} className="relative flex justify-center">
             <button
+              id={`dock-icon-${id}`}
               type="button"
               className="dock-icon"
               aria-label={name}

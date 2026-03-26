@@ -1,39 +1,51 @@
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
 
 import { navIcons, navLinks } from "#constants";
 import useWindowStore from "#store/window";
 
 const Navbar = () => {
-  const { openWindow } = useWindowStore();
+    const openWindow = useWindowStore((state) => state.openWindow);
+    const [time, setTime] = useState(dayjs());
 
-  return (
-    <nav>
-      <div>
-        <img src="/images/logo.svg" alt="logo" />
-        <p className="font-bold">Marcos' Desktop</p>
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTime(dayjs());
+        }, 15000); // 15 seconds
 
-        <ul>
-          {navLinks.map(({ id, name, type }) => (
-            <li key={id} onClick={() => openWindow(type)}>
-              <p>{name}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+        return () => clearInterval(interval);
+    }, []);
 
-      <div>
-        <ul>
-          {navIcons.map(({ id, img }) => (
-            <li key={id}>
-              <img src={img} className="icon-hover" alt={`icon-${id}`} />
-            </li>
-          ))}
-        </ul>
+    return (
+        <nav>
+            <div>
+                <img src="/images/logo.svg" alt="logo" />
+                <p className="font-bold">Marcos' Desktop</p>
 
-        <time>{dayjs().format("ddd MMM D h:mm A")}</time>
-      </div>
-    </nav>
-  );
+                <ul>
+                    {navLinks.map(({ id, name, type }) => (
+                        <li key={id}>
+                            <button type="button" onClick={() => openWindow(type)}>
+                                <p>{name}</p>
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <div>
+                <ul>
+                    {navIcons.map(({ id, img }) => (
+                        <li key={id}>
+                            <img src={img} className="icon-hover" alt={`icon-${id}`} />
+                        </li>
+                    ))}
+                </ul>
+
+                <time>{time.format("ddd MMM D h:mm A")}</time>
+            </div>
+        </nav>
+    );
 };
 
 export default Navbar;
