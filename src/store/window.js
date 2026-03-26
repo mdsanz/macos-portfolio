@@ -34,9 +34,19 @@ const useWindowStore = create(immer(set => ({
         win.lastPos = pos;
     }),
 
+    setLastSize: (windowKey, size) => set(state => {
+        const win = state.windows[windowKey]
+        win.lastSize = size;
+    }),
+
     focusWindow: (windowKey) => set(state => {
         const win = state.windows[windowKey]
         win.zIndex = state.nextZIndex++
+    }),
+
+    maximizeWindow: (windowKey) => set(state => {
+        const win = state.windows[windowKey]
+        win.isMaximized = !win.isMaximized
     })
 })))
 
