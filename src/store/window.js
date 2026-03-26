@@ -52,4 +52,4 @@ const useWindowStore = create(immer(set => ({
     })
 })))
 
-export default useWindowStore
+export default useWindowStore

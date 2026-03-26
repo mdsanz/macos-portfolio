@@ -4,7 +4,7 @@ import useWindowStore from "#store/window";
 
 const Image = () => {
     const { windows } = useWindowStore();
-    const data = windows.imgfile.data;
+    const data = windows?.imgfile?.data;
 
     if (!data) return null;
 
@@ -18,8 +18,8 @@ const Image = () => {
                 <div className="w-12" />
             </div>
 
-            <div className="preview flex-1">
-                {imageUrl && <img src={imageUrl} alt={name} />}
+            <div className="preview">
+                {imageUrl && <img src={imageUrl} alt={name || "Preview image"} />}
             </div>
         </div>
     );
